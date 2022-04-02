@@ -1,0 +1,11 @@
+version: 1
+datastore:
+  user: root
+  password: Pg000001
+  hostname: pg-acit3855-kafka.eastus.cloudapp.azure.com
+  port: 3306
+  db: game
+events:
+  hostname: pg-acit3855-kafka.eastus.cloudapp.azure.com
+  port: 9092
+  topic: events

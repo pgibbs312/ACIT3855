@@ -1,0 +1,5 @@
+version: 1.0.0
+events:
+  hostname: pg-acit3855-kafka.eastus.cloudapp.azure.com
+  port: 9092
+  topic: events

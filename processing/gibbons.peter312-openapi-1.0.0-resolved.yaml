@@ -1,0 +1,139 @@
+---
+openapi: 3.0.0
+info:
+  title: Audit API
+  description: This API provides audit information
+  contact:
+    email: gibbons.peter312@gmail.com
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/gibbons.peter312/openapi/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /game/score:
+    get:
+      summary: gets scores from history
+      description: gets scores from the event store
+      operationId: app.get_score
+      parameters:
+      - name: index
+        in: query
+        description: gets the score at the index in the event store
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: "100"
+      responses:
+        "200":
+          description: successfully returned a score event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameScore'
+        "400":
+          description: invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+  /game/addUser:
+    get:
+      summary: gets a user from the history
+      description: gets a user from the event store
+      operationId: app.get_user
+      parameters:
+      - name: index
+        in: query
+        description: gets the user at the index in the event store
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          example: 100
+      responses:
+        "200":
+          description: Sccessfully returned a user event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not Found
+components:
+  schemas:
+    GameScore:
+      required:
+      - date
+      - runTime
+      - score
+      - score_id
+      - userName
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        date:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+        runTime:
+          type: string
+          format: DateTimeOffset
+          example: +04:30
+        score:
+          type: integer
+          example: 100
+    User:
+      required:
+      - email
+      - name
+      - password
+      - phoneNumber
+      - timeStamp
+      - user_id
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 999
+        name:
+          type: string
+          example: Peter
+        email:
+          type: string
+          example: gibbons.peter312@gmail.com
+        password:
+          type: string
+          example: password
+        phoneNumber:
+          type: string
+          example: 604-212-2211
+        timeStamp:
+          type: string
+          format: date-time
+    inline_response_400:
+      type: object
+      properties:
+        message:
+          type: string

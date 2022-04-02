@@ -1,0 +1,177 @@
+---
+openapi: 3.0.0
+info:
+  title: Score API
+  description: This API receives score events from a mobile app game
+  contact:
+    email: gibbons.peter312@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+tags:
+- name: User&Scores
+  description: uploads users and scores to the system
+paths:
+  /game/score:
+    post:
+      tags:
+      - score
+      summary: post users score
+      description: Adds the user score to the website
+      operationId: app.addScore
+      requestBody:
+        description: Inventory item to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameScore'
+      responses:
+        "201":
+          description: score created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing user score already exists
+    get:
+      tags:
+        - score
+      summary: gets new game score
+      operationId: app.get_score
+      description: gets a new game score added after a timeStamp
+      parameters: 
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema: 
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        '200':
+          description: Successfully returned a list of scores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameScore'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    
+  /game/user:
+    post:
+      tags:
+      - user
+      summary: Creates a user
+      description: Adds a new user to the system
+      operationId: app.add_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: user created
+        "400":
+          description: invalid input, object invalid
+    
+    get:
+      tags:
+        - user
+      summary: gets new game score
+      operationId: app.get_user
+      description: gets users added after a timeStamp
+      parameters: 
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema: 
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        '200':
+          description: Successfully returned a list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+          
+components:
+  schemas:
+    GameScore:
+      required:
+      - score_id
+      - date
+      - runTime
+      - score
+      - userName
+      type: object
+      properties:
+        score_id:
+          type: integer
+          example: 123456
+        userName:
+          type: string
+          example: Xerion
+        date:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+        runTime:
+          type: string
+          format: DateTimeOffset
+          example: +04:30
+        score:
+          type: integer
+          example: 100
+    User:
+      required:
+      - user_id
+      - email
+      - name
+      - password
+      - phoneNumber
+      - timeStamp
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 999
+        name:
+          type: string
+          example: Peter
+        email:
+          type: string
+          example: gibbons.peter312@gmail.com
+        password:
+          type: string
+          example: password
+        phoneNumber:
+          type: string
+          example: 604-212-2211
+        timeStamp:
+          type: string
+          format: date-time
+          example: 2022-01-25T09:12:33.001Z

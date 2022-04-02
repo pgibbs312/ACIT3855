@@ -1,0 +1,10 @@
+FROM Unbuntu:18.04
+LABEL maintainer="gibbons.peter312@gmail.com"
+RUN apt-get update -y && apt-get install -y python3 python-pip
+COPY ./* /app/
+
+
+WORKDIR /app
+RUN pip3 install -r requirements.txt
+ENTRYPOINT [ "python3" ]
+CMD [ "app.py" ]
