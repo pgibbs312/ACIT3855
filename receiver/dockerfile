@@ -1,6 +1,6 @@
 FROM Unbuntu:18.04
 LABEL maintainer="gibbons.peter312@gmail.com"
-RUN apt-get update -y && apt-get install -y python3 python-pip
+RUN apt-get update -y && apt-get install -y python3 python3-pip
 COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN pip3 install -r requirements.txt
