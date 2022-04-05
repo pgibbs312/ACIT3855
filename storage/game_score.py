@@ -1,4 +1,4 @@
-from tkinter.tix import COLUMN, INTEGER
+# from tkinter.tix import COLUMN, INTEGER
 from sqlalchemy import Column, Integer, String, DateTime, false, null
 from base import Base
 import datetime
