@@ -104,6 +104,12 @@ components:
         score:
           type: integer
           example: 100
+        score_id:
+          type: integer
+          example: 100
+        userName:
+          type: string
+          example: xerion
     User:
       required:
       - email
