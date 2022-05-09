@@ -134,7 +134,7 @@ def process_messages():
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("BCIT37-game-score-1.0.0-resolved.yaml", strict_validation=True, validate_responses=True)
 if __name__ == "__main__":
-    t1 = Thread(target=process_messages())
+    t1 = Thread(target=process_messages)
     t1.setDaemon(True)
     t1.start()
     app.run(port=8090)
