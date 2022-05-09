@@ -51,7 +51,7 @@ def create_tables():
     ''')
     conn.commit()
     conn.close()
-if path.exists(app_config["datastore"]["filename"]):
+if not path.exists(app_config["datastore"]["filename"]):
     create_tables()
     print('created db')
 
