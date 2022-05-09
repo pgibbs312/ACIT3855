@@ -7,6 +7,7 @@ from flask import session
 import os
 from os import path
 import yaml
+import sqlite3
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from base import Base
@@ -16,7 +17,6 @@ import logging.config
 import datetime
 import requests
 import uuid
-import sqlite3
 from stats import Stats
 
 logger = logging.getLogger('basicLogger')
