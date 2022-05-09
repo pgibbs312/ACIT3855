@@ -1,0 +1,64 @@
+---
+openapi: 3.0.0
+info:
+  description: This API provides event tats
+  version: "1.0.0"
+  title: Stats API 
+  contact:
+    email: gibbons.peter312@gmail.com
+    
+paths:
+  /game/stats:
+    get:
+      summary: Gets the game stats
+      operationId: app.get_stats
+      description: |
+        gets the game and user stats
+      responses:
+        '200':
+          description: sucessfully returned a list of score events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/scoreStats'
+        '400':
+          description: invalid request
+
+components:
+  schemas:
+    scoreStats:
+      required: 
+        - num_scores
+        - top_score
+        - low_score
+        - longest_run
+        - shortest_run
+        - num_users
+      properties:
+        num_scores:
+          type: integer
+          example: 5000
+        top_score:
+          type: integer
+          example: 500
+        low_score:
+          type: integer
+          example: 25
+        longest_run:
+          type: string
+          format: DateTimeOffset
+          example: +010:30
+        shortest_run:
+          type: string
+          format: DateTimeOffset
+          example: +01:00
+        num_users:
+          type: integer
+          example: 2500
+      type: object
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/BCIT37/BCIT_Stats/1.0.0
