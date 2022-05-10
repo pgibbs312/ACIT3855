@@ -86,7 +86,7 @@ def populate_stats():
     for i in score_data:
         num_scores += 1
         print(i)
-        logger.info(f'processing event with trans_id: {i["trans_id"]}')
+        #logger.info(f'processing event with trans_id: {i["trans_id"]}')
         if top_score < i["score"]:
             top_score = i["score"]
         else:
