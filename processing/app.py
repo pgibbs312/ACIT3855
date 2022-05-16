@@ -112,7 +112,7 @@ def populate_stats():
     else:
         logger.info(f'received {num_users} of requests with status code: {score_request.status_code}')
     logger.info(f'received {len(scores_received)} score responses')
-    logger.info(f'received {len(scores_received)} user responses')
+    logger.info(f'received {len(users_received)} user responses')
     # if no request received
     
 
