@@ -92,6 +92,8 @@ def get_user(timestamp):
     session = DB_SESSION()
     timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
     scores = session.query(User).filter(User.timeStamp >= timestamp_datetime)
+    test = session.query(User)
+    print(test)
     result_list = []
 
     for i in scores:
