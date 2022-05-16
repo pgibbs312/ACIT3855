@@ -68,8 +68,8 @@ def populate_stats():
 
     # Get score and user data
     headers = {"content-type": "application/json"}
-    score_request = requests.get(app_config['eventstore']['url']+last_update, headers=headers)
-    user_request = requests.get(app_config['eventstore2']['url']+last_update, headers=headers)
+    score_request = requests.get(app_config['eventstore']['url']+last_update)
+    user_request = requests.get(app_config['eventstore2']['url']+last_update)
     print('score url:' + app_config['eventstore']['url']+last_update)
     print(score_request)
     print(user_request)
