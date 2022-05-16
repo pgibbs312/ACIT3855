@@ -70,6 +70,7 @@ def populate_stats():
     headers = {"content-type": "application/json"}
     score_request = requests.get(app_config['eventstore']['url']+last_update, headers=headers)
     user_request = requests.get(app_config['eventstore2']['url']+last_update, headers=headers)
+    print('score url:' + app_config['eventstore']['url']+last_update)
     print(score_request)
     print(user_request)
     score_data = score_request.json()
