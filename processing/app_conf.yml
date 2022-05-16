@@ -6,6 +6,6 @@ scheduler:
 statstore:
   url: http://pg-acit3855-kafka.eastus.cloudapp.azure.com:8100/game/stats
 eventstore:
-  url: http://pg-acit3855-kafka.eastus.cloudapp.azure.com:8090/game/score?timestamp=
+  url: http://localhost:8090/game/score?timestamp=
 eventstore2:
-  url: http://pg-acit3855-kafka.eastus.cloudapp.azure.com:8090/game/user?timestamp=
+  url: http://localhost:8090/game/user?timestamp=
