@@ -17,7 +17,7 @@ def get_score(index):
     """ Get Score Reading in History """
     hostname = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
     client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config["events"]["topics"])]
+    topic = client.topics[str.encode(app_config["events"]["topic"])]
     consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving score at index %d" % index)
     try: 
@@ -35,7 +35,7 @@ def get_user(index):
     """ Get User Reading in History """
     hostname = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
     client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config["events"]["topics"])]
+    topic = client.topics[str.encode(app_config["events"]["topic"])]
     consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving user at index %d" % index)
     try: 
