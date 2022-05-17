@@ -5,6 +5,8 @@ datastore:
   hostname: pg-acit3855-kafka.eastus.cloudapp.azure.com
   port: 3306
   db: game
+  eventstore:
+    url: http://localhost:8100/game/stats
 events:
   hostname: pg-acit3855-kafka.eastus.cloudapp.azure.com
   port: 9092
