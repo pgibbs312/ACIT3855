@@ -154,10 +154,21 @@ def get_stats():
 
     for i in stats:
         result_list.append(i.to_dict())
-
+    latest = result_list[len(result_list)-1]
+    stat_dict = {
+        'num_scores': latest['num_scores'], 
+        'top_score': latest['top_score'], 
+        'low_score': latest['low_score'], 
+        'longest_run': latest['longest_run'], 
+        'shortest_run': latest['shortest_run'], 
+        'num_users': latest['num_users'], 
+        'last_updated': latest['last_updated']
+    }
+    logger.debug(stat_dict)
+    logger.info('get stats completed')
     session.close()
     print(f'get stats list: {result_list}')
-    return result_list, 200
+    return stat_dict, 200
     
 def get_time():
 
