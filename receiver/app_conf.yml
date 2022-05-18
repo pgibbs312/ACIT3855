@@ -3,3 +3,6 @@ events:
   hostname: pg-acit3855-kafka.eastus.cloudapp.azure.com
   port: 9092
   topic: events
+kafka_connect:
+  retry_count: 10
+  sleep_time: 5
