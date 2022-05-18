@@ -6,7 +6,10 @@ info:
   title: Stats API 
   contact:
     email: gibbons.peter312@gmail.com
-    
+servers:
+- url: /
+tags:
+- name: stats
 paths:
   /game/stats:
     get:
@@ -58,7 +61,3 @@ components:
           type: integer
           example: 2500
       type: object
-servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/BCIT37/BCIT_Stats/1.0.0
