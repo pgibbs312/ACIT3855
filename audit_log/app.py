@@ -19,6 +19,7 @@ def get_score(index):
     client = KafkaClient(hosts=hostname)
     topic = client.topics[str.encode(app_config["events"]["topic"])]
     consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
+    index = int(index)
     logger.info("Retrieving score at index %d" % index)
     try: 
         for msg in consumer:
