@@ -30,6 +30,6 @@ class Stats(Base):
         dict['longest_run'] = self.longest_run
         dict['shortest_run'] = self.shortest_run
         dict['num_users'] = self.num_users
-        dict['last_updated'] = self.last_updated.strftime("%Y-%m-%dT%H:%M:%S")
+        dict['last_updated'] = self.last_updated #.strftime("%Y-%m-%dT%H:%M:%S")
 
         return dict
