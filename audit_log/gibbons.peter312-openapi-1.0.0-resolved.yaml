@@ -7,7 +7,7 @@ info:
     email: gibbons.peter312@gmail.com
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/gibbons.peter312/openapi/1.0.0
+- url: /
   description: SwaggerHub API Auto Mocking
 paths:
   /game/score:
