@@ -17,6 +17,7 @@ import json
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from threading import Thread
+from time import sleep
 
 logger = logging.getLogger('basicLogger')
 with open('log_conf.yml', 'r') as f:
@@ -104,10 +105,22 @@ def get_user(timestamp):
     return result_list, 200
 
 def process_messages():
-    
-    logger.info("logging started")
-    hostname = "%s:%d" % (parsed_conf["events"]["hostname"], parsed_conf["events"]["port"])
-    client = KafkaClient(hosts=hostname)
+    retry_count = 0
+    hostname = f'{parsed_conf["events"]["hostname"]}:{parsed_conf["events"]["port"]}'
+    while retry_count < parsed_conf["kafka_connect"]["retry_count"]:
+        try:
+            logger.info('trying to connect, attemp: %d' % (retry_count))
+            print(hostname)
+            client = KafkaClient(hosts=hostname) 
+            topic = client.topics[str.encode(parsed_conf['events']['topic'])] 
+            producer = topic.get_sync_producer() 
+        except:
+            logger.info('attempt %d failed, retry in 5 seoncds' % (retry_count))
+            retry_count += 1
+            sleep(parsed_conf["kafka_connect"]["sleep_time"])
+        else:
+            break
+    logger.info('connected to kafka')
     topic = client.topics[str.encode(parsed_conf["events"]["topic"])]
 
     # read all the old messages formt he history in the message que
