@@ -5,6 +5,7 @@ import logging.config
 import datetime 
 import json
 from pykafka import KafkaClient, Producer
+from time import sleep
 
 logger = logging.getLogger('basicLogger')
 
@@ -15,10 +16,24 @@ with open("app_conf.yml", 'r') as f:
     app_config = yaml.load(f, Loader=yaml.FullLoader)
 def get_score(index):
     """ Get Score Reading in History """
+    retry_count = 0
     hostname = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
-    client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config["events"]["topic"])]
-    consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
+    while retry_count < app_config["kafka_connect"]["retry_count"]:
+        try:
+            logger.info('trying to connect, attemp: %d' % (retry_count))
+            print(hostname)
+            client = KafkaClient(hosts=hostname) 
+            topic = client.topics[str.encode(app_config['events']['topic'])] 
+            consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
+        except:
+            logger.info('attempt %d failed, retry in 5 seoncds' % (retry_count))
+            retry_count += 1
+            sleep(app_config["kafka_connect"]["sleep_time"])
+        else:
+            break
+    logger.info('connected to kafka')
+    
+    
     index = int(index)
     logger.info("Retrieving score at index %d" % index)
     try: 
