@@ -36,10 +36,15 @@ def get_score(index):
     
     index = int(index)
     logger.info("Retrieving score at index %d" % index)
-    try: 
+    try:
+        score_list = []
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
+            if msg['type'] == 'addScore':
+                score_list.append(msg)
+        logger.info('returned payload with trace_id: %s' % (score_list[index]['payload']['trace_id']))
+        return score_list[index], 200
     except:
         logger.error("No more messages found")
     
