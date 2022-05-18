@@ -156,7 +156,7 @@ def get_stats():
         result_list.append(i.to_dict())
 
     session.close()
-
+    print(f'get stats list: {result_list}')
     return result_list, 200
     
 def get_time():
