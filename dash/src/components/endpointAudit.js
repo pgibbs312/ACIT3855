@@ -10,7 +10,7 @@ export default function EndpointAudit(props) {
     const [index, setIndex] = useState(null); //state for index
 
     const getAudit = () => {
-        fetch(`pg-acit3855-kafka.eastus.cloudapp.azure.com/audit/${props.endpoint}?index=${rand_val}`)
+        fetch(`pg-acit3855-kafka.eastus.cloudapp.azure.com/game/score?index=${rand_val}`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received Audit Results for " + props.endpoint)
