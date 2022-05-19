@@ -8,7 +8,7 @@ import os
 from os import path
 import yaml
 import sqlite3
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, null
 from sqlalchemy.orm import sessionmaker
 from base import Base
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -71,11 +71,11 @@ def populate_stats():
     headers = {"content-type": "application/json"}
     score_request = requests.get(app_config['eventstore']['url']+last_update, headers=headers)
     user_request = requests.get(app_config['eventstore2']['url']+last_update, headers=headers)
-    print('score url:' + app_config['eventstore']['url']+last_update)
-    print(score_request)
-    print(user_request)
     score_data = score_request.json()
     user_data = user_request.json()
+    print(f'score_data: {score_data}')
+    if len(score_data) == 0 and len(user_data) == 0:
+        return null
     num_scores = 0
     top_score = 0
     low_score = 0
@@ -87,7 +87,6 @@ def populate_stats():
     # Forloop for score data
     for i in score_data:
         num_scores += 1
-        print(i)
         #logger.info(f'processing event with trans_id: {i["trans_id"]}')
         if top_score < i["score"]:
             top_score = i["score"]
@@ -169,7 +168,6 @@ def get_stats():
     logger.debug(stat_dict)
     logger.info('get stats completed')
     session.close()
-    print(f'get stats list: {result_list}')
     return stat_dict, 200
     
 def get_time():
