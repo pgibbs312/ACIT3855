@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../app.css';
 
 export default function EndpointAudit(props) {
+    console.log(`props is: ${props}`);
     const [isLoaded, setIsLoaded] = useState(false);
     const [log, setLog] = useState(null);
     const [error, setError] = useState(null)
