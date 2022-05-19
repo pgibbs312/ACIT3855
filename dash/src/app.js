@@ -6,7 +6,7 @@ import AppStats from './components/appStats'
 
 function App() {
 
-    const endpoints = ["stockNumber", "dateRange"]
+    const endpoints = ["game", "user"]
 
     const rendered_endpoints = endpoints.map((endpoint) => {
         return <EndpointAudit key={endpoint} endpoint={endpoint}/>
