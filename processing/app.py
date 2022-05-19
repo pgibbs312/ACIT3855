@@ -104,7 +104,6 @@ def populate_stats():
     # Forloop for user data
     for i in user_data:
         num_users += 1
-    print(f'number of users are: {num_users}')
     scores_received = score_request.json()
     users_received = user_request.json()
     if score_request.status_code != 200:
@@ -120,6 +119,7 @@ def populate_stats():
 
     last_updated = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     last_update = str(last_update)
+    print(f'Top score: {top_score}, longest run: {longest_run}')
     stats = Stats(
         num_scores,
         top_score,
