@@ -1,4 +1,4 @@
-import logo from './stonks.jpg';
+import logo from './logo.webp';
 import './app.css';
 
 import EndpointAudit from './components/endpointAudit'
