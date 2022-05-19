@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import '../app.css';
 
-export default function appStats() {
+export default function AppStats() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [stats, setStats] = useState({});
+    const [health, setHealth] = useState({});
     const [error, setError] = useState(null)
 
 	const getStats = () => {
