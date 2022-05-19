@@ -6,6 +6,7 @@ import datetime
 import json
 from pykafka import KafkaClient, Producer
 from time import sleep
+from flask_cors import CORS, cross_origin
 
 logger = logging.getLogger('basicLogger')
 
@@ -90,6 +91,8 @@ def get_user(index):
     return { "message": "Not found "}, 404
 
 app = connexion.FlaskApp(__name__, specification_dir='')
+CORS(app.app)
+app.app.config['CORS_HEADERS']='Content-Type'
 app.add_api("gibbons.peter312-openapi-1.0.0-resolved.yaml", strict_validation=True, validate_responses=True)
 if __name__ == "__main__":
     app.run(port=8110)

@@ -18,6 +18,7 @@ import datetime
 import requests
 import uuid
 from stats import Stats
+from flask_cors import CORS, cross_origin
 
 logger = logging.getLogger('basicLogger')
 with open('log_conf.yml', 'r') as f:
@@ -181,6 +182,8 @@ def get_time():
 
     return row
 app = connexion.FlaskApp(__name__, specification_dir='')
+CORS(app.app)
+app.app.config['CORS_HEADERS']='Content-Type'
 app.add_api("BCIT37-BCIT_Stats-1.0.0-swagger.yaml", strict_validation=True, validate_responses=True)
 if __name__ == "__main__":
     init_scheduler()
