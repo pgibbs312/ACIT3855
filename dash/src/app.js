@@ -1,8 +1,8 @@
 import logo from './stonks.jpg';
 import './app.css';
 
-import EndpointAudit from './components/EndpointAudit'
-import AppStats from './components/AppStats'
+import EndpointAudit from './components/endpointAudit'
+import AppStats from './components/appStats'
 
 function App() {
 
