@@ -156,6 +156,7 @@ def get_stats():
     for i in stats:
         result_list.append(i.to_dict())
     latest = result_list[len(result_list)-1]
+    print(f'the # of indexes: {len(result_list)}')
     stat_dict = {
         'num_scores': latest['num_scores'], 
         'top_score': latest['top_score'], 
