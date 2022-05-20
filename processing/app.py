@@ -65,12 +65,13 @@ def populate_stats():
 
     query = get_time()
     last_update = query[-1]
+    current_timestamp = datetime.strptime(str(datetime.now()),"%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%dT%H:%M:%SZ")
     print(f'last updated @ {last_update}')
 
     # Get score and user data
     headers = {"content-type": "application/json"}
-    score_request = requests.get(app_config['eventstore']['url']+last_update, headers=headers)
-    user_request = requests.get(app_config['eventstore2']['url']+last_update, headers=headers)
+    score_request = requests.get(app_config['eventstore']['url']+last_update+"&end_timestamp="+current_timestamp, headers=headers)
+    user_request = requests.get(app_config['eventstore2']['url']+last_update+"&end_timestamp="+current_timestamp, headers=headers)
     score_data = score_request.json()
     user_data = user_request.json()
     print(f'score_data: {score_data}')
@@ -117,7 +118,7 @@ def populate_stats():
     
 
     last_updated = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-    last_update = str(last_update)
+    last_update = str(current_timestamp)
     print(f'Top score: {top_score}, longest run: {longest_run}')
     stats = Stats(
         num_scores,

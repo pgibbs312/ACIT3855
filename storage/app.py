@@ -7,6 +7,7 @@ import pymysql
 import yaml
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import and_
 from base import Base
 from game_score import GameScore
 from user import User
@@ -72,11 +73,12 @@ def add_user(body):
     logger.info('Connecting to DB. Hostname: pg-acit3855-kafka.eastus.cloudapp.azure.com, Port: 3306')
     return NoContent, 201
 
-def get_score(timestamp):
+def get_score(start_timestamp, end_timestamp):
     """ Gets new game score after the timestamp """
     session = DB_SESSION()
-    timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
-    scores = session.query(GameScore).filter(GameScore.date >= timestamp_datetime)
+    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%SZ")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%SZ")
+    scores = session.query(GameScore).filter(and_(GameScore.date >= start_timestamp_datetime, GameScore.date < end_timestamp_datetime))
     result_list = []
 
     for i in scores:
@@ -84,15 +86,16 @@ def get_score(timestamp):
 
     session.close()
 
-    logger.info("Query for Game Score scores after %s returns %d results" %(timestamp, len(result_list)))
+    logger.info("Query for Game Score scores after %s returns %d results" %(start_timestamp, len(result_list)))
 
     return result_list, 200
 
-def get_user(timestamp):
+def get_user(start_timestamp, end_timestamp):
     """ Gets new users added after the timestamp """
     session = DB_SESSION()
-    timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")
-    scores = session.query(User).filter(User.timeStamp >= timestamp_datetime)
+    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%dT%H:%M:%SZ")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%dT%H:%M:%SZ")
+    scores = session.query(User).filter(and_(User.timeStamp >= start_timestamp_datetime, User.timeStamp < end_timestamp_datetime))
     result_list = []
 
     for i in scores:
@@ -100,7 +103,7 @@ def get_user(timestamp):
 
     session.close()
 
-    logger.info("Query for users added after %s returns %d results" %(timestamp, len(result_list)))
+    logger.info("Query for users added after %s returns %d results" %(start_timestamp, len(result_list)))
 
     return result_list, 200
 
