@@ -66,7 +66,8 @@ def populate_stats():
 
     query = get_time()
     last_update = query[-1]
-    current_timestamp = datetime.strptime(str(datetime.now()),"%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%dT%H:%M:%SZ")
+    current_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+    current_timestamp = str(current_timestamp)
     print(f'last updated @ {last_update}')
 
     # Get score and user data
