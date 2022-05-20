@@ -69,6 +69,7 @@ def populate_stats():
     current_timestamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     current_timestamp = str(current_timestamp)
     print(f'last updated @ {last_update}')
+    print(f'current timestamp: {current_timestamp}')
 
     # Get score and user data
     headers = {"content-type": "application/json"}
