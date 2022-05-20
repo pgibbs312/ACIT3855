@@ -14,7 +14,7 @@ from base import Base
 from apscheduler.schedulers.background import BackgroundScheduler
 import logging
 import logging.config
-import datetime
+from datetime import datetime
 import requests
 import uuid
 from stats import Stats
